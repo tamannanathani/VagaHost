@@ -89,7 +89,7 @@ app.use((req,res,next)=>{
 })
 
 app.get("/search",async(req,res)=>{
-    const {query}=req.query.q;
+    const query=req.query.q;
     if (!query) {
     req.flash('error', 'Please enter a search term.');
     return res.redirect('/listings'); 
