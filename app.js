@@ -68,6 +68,32 @@ app.use(express.static(path.join(__dirname,"/public")))
 //     res.send("hi i am root")
 // })
 
+app.get("/search",async(req,res)=>{
+    const {query}=req.query.q;
+    if (!query) {
+    req.flash('error', 'Please enter a search term.');
+    return res.redirect('/listings'); 
+}
+try {
+  const regex = new RegExp(`^${query}$`, 'i');
+  const listing = await Listing.findOne({
+    title: { $regex: regex }
+  });
+if (listing) {
+      
+      return res.redirect(`/listings/${listing._id}`);
+    } else {
+      req.flash('error', `No listing found for "${query}"`);
+      return res.redirect('/listings'); 
+    }
+
+} catch (err) {
+    console.error(err);
+    req.flash('error', 'Something went wrong.');
+    return res.redirect('/listings');
+}
+
+})
 
 app.use(session(sessionOptions));
 app.use(flash());
