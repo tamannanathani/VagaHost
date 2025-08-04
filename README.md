@@ -16,7 +16,8 @@ Sessions: MongoDB using connect-mongo
 
 Hosting: Render
 
-✨ Key Features
+✨ Key Features:
+
  User Accounts: Secure signup, login, and logout with session management
 
  Listings: Users can add, edit, view, and delete campgrounds
